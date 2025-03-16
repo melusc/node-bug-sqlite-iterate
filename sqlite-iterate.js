@@ -22,11 +22,6 @@ console.log(database.prepare("SELECT count(*) as row_count FROM users;").get());
 // const iter = [...database.prepare('SELECT * from users;').iterate()][Symbol.iterator]();
 const iter = database.prepare("SELECT * from users;").iterate();
 
-while (true) {
-	const next = iter.next();
-	if (next.done) {
-		break;
-	}
-
-	console.log(next.value.user_id, next.value.name);
+for (const row of iter) {
+	console.log(row.user_id, row.name);
 }
