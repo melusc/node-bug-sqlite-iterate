@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    name: CI
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Use Node.js
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a
+        with:
+          check-latest: true
+          node-version: 23
+
+      - run: node sqlite-iterate.js
