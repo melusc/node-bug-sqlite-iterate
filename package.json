@@ -1,0 +1,9 @@
+{
+	"type": "module",
+	"name": "abc",
+	"packageManager": "npm@11.2.0",
+	"devDependencies": {
+		"@types/node": "^22.13.10"
+	},
+	"version": ""
+}
