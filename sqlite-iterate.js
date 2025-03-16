@@ -21,17 +21,15 @@ for (let index = 0; index < 1e3; ++index) {
 console.log(database.prepare('SELECT count(*) as row_count FROM users;').get());
 
 
-// const iters = [[...database.prepare('SELECT * from users;').iterate()][Symbol.iterator]()];
-const iters = [database.prepare('SELECT * from users;').iterate()];
+// This doesn't fail so it is iterators per se
+// const iter = [...database.prepare('SELECT * from users;').iterate()][Symbol.iterator]();
+const iter = database.prepare('SELECT * from users;').iterate();
 
-outerLoop:
-while (true) {
-	for (const iter of iters) {
-		const next = iter.next();
-		if (next.done) {
-			break outerLoop;
-		}
-
-		console.log(next.value.user_id, next.value.name);
+while(true) {
+	const next = iter.next();
+	if (next.done) {
+		break;
 	}
+
+	console.log(next.value.user_id, next.value.name);
 }
